@@ -18,7 +18,7 @@ server.on('request', (request, response) => {
   }
 
   else if (request.method === 'POST') {
-    let newMessage = { 'id': new Date() };
+    let newMessage = { 'id': (messages.length + 1) };
 
     request.on('data', (data) => {
       newMessage = Object.assign(newMessage, JSON.parse(data));
@@ -33,4 +33,9 @@ server.on('request', (request, response) => {
 getAllMessages = (response) => {
   response.writeHead(200, { "Content-Type": "application/json" });
   response.end(JSON.stringify(messages));
-} 
+}
+
+addMessage = (newMessage, response) => {
+  response.writeHead(201, { "Content-Type": "application/json" });
+  response.end(JSON.stringify(newMessage));
+}
